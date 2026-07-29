@@ -1,51 +1,64 @@
-cmake_minimum_required(VERSION 3.16)
-project(StudentGradeEvaluator LANGUAGES CXX)
+# Student Grade Evaluation & Report Card System 🎓
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+A robust Java Swing desktop application designed to evaluate student exam scores, compute cumulative academic averages, and generate formal academic report cards with built-in export capabilities. Tailored with specific engineering and general university courses for Ghana Communication Technology University (GCTU).
 
-# Automatically look for Homebrew paths on macOS (Apple Silicon & Intel)
-if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    if(EXISTS "/opt/homebrew")
-        list(APPEND CMAKE_PREFIX_PATH "/opt/homebrew")
-    elseif(EXISTS "/usr/local")
-        list(APPEND CMAKE_PREFIX_PATH "/usr/local")
-    endif()
-endif()
+---
 
-# Find GLFW package installed via Homebrew
-find_package(glfw3 REQUIRED)
+## 🚀 Features
 
-# Automatically download Dear ImGui from GitHub
-include(FetchContent)
-FetchContent_Declare(
-    imgui
-    GIT_REPOSITORY https://github.com/ocornut/imgui.git
-    GIT_TAG        v1.90.4
-)
-FetchContent_MakeAvailable(imgui)
+* **Multi-Course Input Interface:** Clean, scrollable form layout to input scores for a wide range of academic subjects.
+* **Automated Grading Logic:** Automatically assigns letter grades ($\text{A}$ to $\text{F}$) and descriptive remarks based on standard grading thresholds:
+  * $\ge 70\%$ $\rightarrow$ **A** (Pass - Excellent)
+  * $\ge 60\%$ $\rightarrow$ **B** (Pass - Very Good)
+  * $\ge 50\%$ $\rightarrow$ **C** (Pass - Credit)
+  * $\ge 45\%$ $\rightarrow$ **D** (Pass - Pass)
+  * $< 45\%$ $\rightarrow$ **F** (Fail)
+* **Cumulative Performance Tracking:** Computes the cumulative average score and determines the overall academic status (Pass/Fail).
+* **Official Report Card Layout:** Generates a structured, monospaced institutional report card displaying student details, individual course scores, grades, and remarks.
+* **Export & Print Options:** Built-in support to print or export the official report card directly to a **PDF** or text file via native OS dialogs.
 
-# Add executable including ImGui core files and backends
-add_executable(StudentGradeEvaluator
-    main.cpp
-    ${imgui_SOURCE_DIR}/imgui.cpp
-    ${imgui_SOURCE_DIR}/imgui_demo.cpp
-    ${imgui_SOURCE_DIR}/imgui_draw.cpp
-    ${imgui_SOURCE_DIR}/imgui_tables.cpp
-    ${imgui_SOURCE_DIR}/imgui_widgets.cpp
-    ${imgui_SOURCE_DIR}/backends/imgui_impl_glfw.cpp
-    ${imgui_SOURCE_DIR}/backends/imgui_impl_opengl3.cpp
-)
+---
 
-# Set include directories so compiler finds ImGui headers
-target_include_directories(StudentGradeEvaluator PRIVATE
-    ${imgui_SOURCE_DIR}
-    ${imgui_SOURCE_DIR}/backends
-)
+## 📚 Included Courses
 
-# Link libraries and macOS OpenGL framework
-target_link_libraries(StudentGradeEvaluator PRIVATE glfw)
+The application evaluates performance across the following curriculum:
+* Critical Thinking and Logical Reasoning
+* Circuit Theory
+* Technical Communication Skills
+* Cyber Law
+* Engineering Drawings
+* Basic Electronics (Semiconductors)
+* Engineering Mathematics
+* Programming in C++ (Arduino)
 
-if(APPLE)
-    target_link_libraries(StudentGradeEvaluator PRIVATE "-framework OpenGL")
-endif()
+---
+
+## 💻 Prerequisites
+
+* **Java Development Kit (JDK 8 or higher)** installed on your machine.
+* An Integrated Development Environment (IDE) such as **IntelliJ IDEA**, Eclipse, or VS Code.
+
+---
+
+## 🛠️ Getting Started & Installation
+
+1. **Clone or Download** this repository to your local machine.
+2. Open your preferred Java IDE (**IntelliJ IDEA** recommended).
+3. Create a new Java project and place the `StudentGradeEvaluator.java` file inside your `src` directory.
+4. Run the application:
+   * **In IntelliJ IDEA:** Open the file and click the green play button ($\blacktriangleright$) next to the `main` method.
+   * **Via Terminal:**
+     ```bash
+     javac StudentGradeEvaluator.java
+     java StudentGradeEvaluator
+     ```
+
+---
+
+## 📝 Usage Guide
+
+1. Launch the application to open the **Student Report Card & Grade Evaluation System** window.
+2. Enter the student's full name in the top input field.
+3. Input numeric exam scores (ranging between `0` and `100`) for each listed course.
+4. Click **Generate Report Card** to process the scores and render the formal record in the text box below.
+5. Click **Export / Print as PDF** to invoke your system's print dialog, choose **Save as PDF**, and save your official academic slip.
